@@ -79,10 +79,6 @@ namespace BookStoreManagementGUI.StaffView
                     }
                     AddBook();
                 }
-                else
-                {
-                    MessageBox.Show("The required input must be filled");
-                }
             }
             catch (Exception ex)
             {
@@ -138,10 +134,6 @@ namespace BookStoreManagementGUI.StaffView
 
                             _bookService.UpdateBook(addBook);
                             LoadData();
-                        }
-                        else
-                        {
-                            MessageBox.Show("The required input must be filled");
                         }
                         break;
                     default:
@@ -218,11 +210,13 @@ namespace BookStoreManagementGUI.StaffView
 
         private bool CheckInputField()
         {
-            return !string.IsNullOrEmpty(txt_Name.Text) &&
-                   !string.IsNullOrEmpty(txt_OriginSource.Text) &&
-                   !string.IsNullOrEmpty(txt_Quantity.Text) &&
-                   !string.IsNullOrEmpty(txt_Price.Text) &&
-                   cmb_Category.SelectedValue != null;
+            if (string.IsNullOrEmpty(txt_Name.Text) ||
+                string.IsNullOrEmpty(txt_OriginSource.Text) ||
+                string.IsNullOrEmpty(txt_Quantity.Text) ||
+                string.IsNullOrEmpty(txt_Price.Text))
+                throw new Exception("The required input must be filled");
+
+            return true;
         }
 
         private void txt_Quantity_PreviewTextInput(object sender, TextCompositionEventArgs e)

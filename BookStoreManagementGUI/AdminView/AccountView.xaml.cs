@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -76,10 +77,6 @@ namespace BookStoreManagementGUI.AdminView
                     _accountService.CreateAccount(account);
                     LoadData();
                 }
-                else
-                {
-                    MessageBox.Show("All input fields must be filled!");
-                }
             }
             catch (Exception ex)
             {
@@ -113,11 +110,6 @@ namespace BookStoreManagementGUI.AdminView
                             _accountService.UpdateAccount(updatedAccount);
                             LoadData();
                         }
-                        else
-                        {
-                            MessageBox.Show("All input fields must be filled!");
-                        }
-
                         break;
                     default:
                         MessageBox.Show("Cannot update multiple book category");
@@ -132,10 +124,15 @@ namespace BookStoreManagementGUI.AdminView
 
         private bool InputFieldValidation()
         {
-            return !string.IsNullOrEmpty(txt_Email.Text) &&
-                   !string.IsNullOrEmpty(txt_FullName.Text) &&
-                   !string.IsNullOrEmpty(psw_Password.Password) &&
-                   cmb_Role.SelectedValue != null;
+            if (string.IsNullOrEmpty(txt_Email.Text) ||
+                   string.IsNullOrEmpty(txt_FullName.Text) ||
+                   string.IsNullOrEmpty(psw_Password.Password))
+                throw new Exception("All input fields must be filled!");
+
+            if (!IsValidEmailAddress(txt_Email.Text))
+                throw new Exception("Invalid Email format");
+
+            return true;
         }
 
         private void btn_Delete_Click(object sender, RoutedEventArgs e)
@@ -183,6 +180,12 @@ namespace BookStoreManagementGUI.AdminView
         private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
             LoadData();
+        }
+
+        public bool IsValidEmailAddress(string email)
+        {
+            Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+            return regex.IsMatch(email);
         }
     }
 }
