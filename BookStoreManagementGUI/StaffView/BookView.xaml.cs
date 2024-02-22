@@ -153,7 +153,6 @@ namespace BookStoreManagementGUI.StaffView
             {
                 MessageBox.Show(ex.Message);
             }
-            }
         }
 
         private void btn_Delete_Click(object sender, RoutedEventArgs e)
