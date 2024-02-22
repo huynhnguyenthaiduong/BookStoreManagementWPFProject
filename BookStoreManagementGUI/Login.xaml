@@ -1,0 +1,157 @@
+﻿<Window x:Class="WPFStudentMangementGUI.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:local="clr-namespace:WPFStudentMangementGUI"
+        mc:Ignorable="d"
+        Title="Login" Height="550" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Border CornerRadius="25">
+        <Border.Background>
+            <ImageBrush ImageSource="\Images\lotus.jpg"
+                        Stretch="Fill"/>
+        </Border.Background>
+
+        <Border CornerRadius="10"
+            BorderThickness="5"
+                Opacity="0.95">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="LightGray" Offset="0"/>
+                    <GradientStop Color="LightGray" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#99C8F3" Offset="0"/>
+                    <GradientStop Color="#B0ABF3" Offset="0.5"/>
+                    <GradientStop Color="#C88BF2" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel x:Name="spnl_ControlBar"
+                            Grid.Row="0"
+                            Orientation="Horizontal"
+                            FlowDirection="RightToLeft"
+                            Background="Transparent"
+                            Margin="0,0,5,0">
+
+                    <Button x:Name="btn_Close"
+                            Style="{StaticResource titleBarButton}"
+                            Tag="Black" Click="btn_Close_Click">
+                        <fa:IconImage Icon="X"
+                                      Style="{StaticResource titleBarButtonIcon}"/>
+                    </Button>
+
+                    <Button x:Name="btn_Minimize"
+                            Style="{StaticResource titleBarButton}"
+                            Tag="Black" Click="btn_Minimize_Click">
+                        <fa:IconImage Icon="WindowMinimize"
+                                            Style="{StaticResource titleBarButtonIcon}"/>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Width="260"
+                            Grid.Row="2"
+                            Orientation="Vertical"
+                            Margin="0,45,0,80"
+                            Background="White" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock Height="50"
+                               FontSize="30"
+                               FontFamily="Montserrat"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Margin="0,30,0,0">
+                        Login
+                    </TextBlock>
+
+                    <TextBlock Text="Email"
+                               Foreground="Gray"
+                               FontSize="13"
+                               FontWeight="Bold"
+                               FontFamily="Montserrat"
+                               Margin="15,35,0,0"/>
+                    <TextBox x:Name="txt_Email"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"
+                             Background="Transparent"
+                             Foreground="Black"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,1"
+                             Margin="15,10,15,0">
+                    </TextBox>
+
+                    <TextBlock Text="Password"
+                               Foreground="Gray"
+                               FontSize="13"
+                               FontWeight="Bold"
+                               FontFamily="Montserrat"
+                               Margin="15,40,0,0"/>
+                    <PasswordBox x:Name="txt_Password"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"
+                             Background="Transparent"
+                             Foreground="Black"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,1"
+                             Margin="15,10,15,0">
+                    </PasswordBox>
+                    
+                    <Button x:Name="btn_Login"
+                            BorderThickness="0"
+                            Content="LOG IN"
+                            Foreground="Black"
+                            FontFamily="Montserrat"
+                            FontWeight="Medium"
+                            FontSize="13"
+                            Cursor="Hand"
+                            Margin="0,42,0,0"
+                            Click="btn_Login_Click">
+
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="LightGray"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="DarkGray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Width="130" Height="35"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+
+</Window>
