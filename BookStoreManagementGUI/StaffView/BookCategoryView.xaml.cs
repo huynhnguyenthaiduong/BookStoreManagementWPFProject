@@ -53,51 +53,65 @@ namespace BookStoreManagementGUI.StaffView
 
         private void btn_Add_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(txt_Name.Text))
+            try
             {
-                MessageBox.Show("Category Name is required.");
-            }
-            else
-            {
-                BookCategoryDTO bookCategory = new BookCategoryDTO
+                if (string.IsNullOrEmpty(txt_Name.Text))
                 {
-                    CategoryId = 0,
-                    CategoryName = txt_Name.Text,
-                };
+                    MessageBox.Show("Category Name is required.");
+                }
+                else
+                {
+                    BookCategoryDTO bookCategory = new BookCategoryDTO
+                    {
+                        CategoryId = 0,
+                        CategoryName = txt_Name.Text,
+                    };
 
-                _bookCategoryService.CreateBookCategory(bookCategory);
-                LoadData();
+                    _bookCategoryService.CreateBookCategory(bookCategory);
+                    LoadData();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void btn_Update_Click(object sender, RoutedEventArgs e)
         {
-            switch (dtgv_BookCategoryInfo.SelectedItems.Count)
+            try
             {
-                case 0:
-                    MessageBox.Show("Please Chose Book Category to update");
-                    break;
-                case 1:
-                    if (string.IsNullOrEmpty(txt_Name.Text))
-                    {
-                        MessageBox.Show("Category Name is required.");
-                    }
-                    else
-                    {
-                        BookCategoryDTO category = (BookCategoryDTO)dtgv_BookCategoryInfo.SelectedItem;
-                        BookCategoryDTO updatedCategory = new BookCategoryDTO
+                switch (dtgv_BookCategoryInfo.SelectedItems.Count)
+                {
+                    case 0:
+                        MessageBox.Show("Please Chose Book Category to update");
+                        break;
+                    case 1:
+                        if (string.IsNullOrEmpty(txt_Name.Text))
                         {
-                            CategoryId = category.CategoryId,
-                            CategoryName = txt_Name.Text,
-                        };
+                            MessageBox.Show("Category Name is required.");
+                        }
+                        else
+                        {
+                            BookCategoryDTO category = (BookCategoryDTO)dtgv_BookCategoryInfo.SelectedItem;
+                            BookCategoryDTO updatedCategory = new BookCategoryDTO
+                            {
+                                CategoryId = category.CategoryId,
+                                CategoryName = txt_Name.Text,
+                            };
 
-                        _bookCategoryService.UpdateBookCategory(updatedCategory);
-                        LoadData();
-                    }
-                    break;
-                default:
-                    MessageBox.Show("Cannot update multiple book category");
-                    break;
+                            _bookCategoryService.UpdateBookCategory(updatedCategory);
+                            LoadData();
+                        }
+                        break;
+                    default:
+                        MessageBox.Show("Cannot update multiple book category");
+                        break;
+                }
+            }
+            catch(Exception ex )
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 

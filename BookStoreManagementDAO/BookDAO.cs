@@ -93,8 +93,12 @@ namespace BookStoreManagementDAO
                 }
                 else
                 {
-                    //Throw exception
+                    throw new Exception("Invalid Category");
                 }
+            }
+            else
+            {
+                throw new Exception("Book Name has already used");
             }
         }
 
@@ -137,9 +141,10 @@ namespace BookStoreManagementDAO
                 }
                 else
                 {
-                    //Throw exception
+                    throw new Exception("Invalid Category");
                 }
             }
+            else { throw new Exception("Book is not existed"); }
         }
 
         public void UpdateStatusByQuantity()
@@ -148,7 +153,7 @@ namespace BookStoreManagementDAO
 
             foreach (Book book in books)
             {
-                if(book.Quantity == 0 && book.IsAvailable == true)
+                if (book.Quantity == 0 && book.IsAvailable == true)
                 {
                     _dbContext.Entry(book).Property("IsAvailable").CurrentValue = false;
                     _dbContext.SaveChanges();

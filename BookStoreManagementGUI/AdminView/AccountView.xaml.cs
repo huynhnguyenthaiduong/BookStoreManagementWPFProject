@@ -35,7 +35,7 @@ namespace BookStoreManagementGUI.AdminView
         public void LoadData()
         {
             dtgv_AccountInfo.UnselectAll();
-            cmb_Role.ItemsSource = new List<string> {"Administrator", "Staff", "User" };
+            cmb_Role.ItemsSource = new List<string> { "Administrator", "Staff", "User" };
 
             //Set data input empty
             txt_FullName.Text = string.Empty;
@@ -59,60 +59,74 @@ namespace BookStoreManagementGUI.AdminView
 
         private void btn_Add_Click(object sender, RoutedEventArgs e)
         {
-            //check data validation
-            if (InputFieldValidation())
+            try
             {
-                Account account = new Account
+                //check data validation
+                if (InputFieldValidation())
                 {
-                    AccountId = 0,
-                    FullName = txt_FullName.Text,
-                    Password = psw_Password.Password,
-                    Email = txt_Email.Text,
-                    Role = cmb_Role.SelectedItem.ToString(),
-                };
+                    Account account = new Account
+                    {
+                        AccountId = 0,
+                        FullName = txt_FullName.Text,
+                        Password = psw_Password.Password,
+                        Email = txt_Email.Text,
+                        Role = cmb_Role.SelectedItem.ToString(),
+                    };
 
-                _accountService.CreateAccount(account);
-                LoadData();
+                    _accountService.CreateAccount(account);
+                    LoadData();
+                }
+                else
+                {
+                    MessageBox.Show("All input fields must be filled!");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("All input fields must be filled!");
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void btn_Update_Click(object sender, RoutedEventArgs e)
         {
-            switch (dtgv_AccountInfo.SelectedItems.Count)
+            try
             {
-                case 0:
-                    MessageBox.Show("Please Chose Book Category to update");
-                    break;
-                case 1:
-                    //Check data validation
-                    if (InputFieldValidation())
-                    {
-                        Account account = (Account)dtgv_AccountInfo.SelectedItem;
-                        Account updatedAccount = new Account
+                switch (dtgv_AccountInfo.SelectedItems.Count)
+                {
+                    case 0:
+                        MessageBox.Show("Please Chose Book Category to update");
+                        break;
+                    case 1:
+                        //Check data validation
+                        if (InputFieldValidation())
                         {
-                            AccountId = account.AccountId,
-                            FullName = txt_FullName.Text,
-                            Password = psw_Password.Password,
-                            Email = txt_Email.Text,
-                            Role = cmb_Role.SelectedItem.ToString(),
-                        };
+                            Account account = (Account)dtgv_AccountInfo.SelectedItem;
+                            Account updatedAccount = new Account
+                            {
+                                AccountId = account.AccountId,
+                                FullName = txt_FullName.Text,
+                                Password = psw_Password.Password,
+                                Email = txt_Email.Text,
+                                Role = cmb_Role.SelectedItem.ToString(),
+                            };
 
-                        _accountService.UpdateAccount(updatedAccount);
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show("All input fields must be filled!");
-                    }
+                            _accountService.UpdateAccount(updatedAccount);
+                            LoadData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("All input fields must be filled!");
+                        }
 
-                    break;
-                default:
-                    MessageBox.Show("Cannot update multiple book category");
-                    break;
+                        break;
+                    default:
+                        MessageBox.Show("Cannot update multiple book category");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 

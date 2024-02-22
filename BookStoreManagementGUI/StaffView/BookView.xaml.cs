@@ -61,25 +61,32 @@ namespace BookStoreManagementGUI.StaffView
 
         private void btn_Add_Click(object sender, RoutedEventArgs e)
         {
-            //Check input fields
-            if (CheckInputField())
+            try
             {
-                if(ckb_IsAvailable.IsChecked == false)
+                //Check input fields
+                if (CheckInputField())
                 {
-                    MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure to add unvailable book?", "Add unavailable book", System.Windows.MessageBoxButton.YesNo);
-                    if (messageBoxResult == MessageBoxResult.No) return;
-                }
+                    if (ckb_IsAvailable.IsChecked == false)
+                    {
+                        MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure to add unvailable book?", "Add unavailable book", System.Windows.MessageBoxButton.YesNo);
+                        if (messageBoxResult == MessageBoxResult.No) return;
+                    }
 
-                if(dtpk_ImportDate.SelectedDate > DateTime.Now)
-                {
-                    MessageBox.Show("Import date is invalid ( Import date > today)");
-                    return;
+                    if (dtpk_ImportDate.SelectedDate > DateTime.Now)
+                    {
+                        MessageBox.Show("Import date is invalid ( Import date > today)");
+                        return;
+                    }
+                    AddBook();
                 }
-                AddBook();
+                else
+                {
+                    MessageBox.Show("The required input must be filled");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("The required input must be filled");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -104,40 +111,48 @@ namespace BookStoreManagementGUI.StaffView
 
         private void btn_Update_Click(object sender, RoutedEventArgs e)
         {
-            switch (dtgv_BookInfo.SelectedItems.Count)
+            try
             {
-                case 0:
-                    MessageBox.Show("Please Chose Book Category to update");
-                    break;
-                case 1:
-                    //Check input fields
-                    if (CheckInputField())
-                    {
-                        BookDTO book = (BookDTO)dtgv_BookInfo.SelectedItem;
-                        BookDTO addBook = new BookDTO
+                switch (dtgv_BookInfo.SelectedItems.Count)
+                {
+                    case 0:
+                        MessageBox.Show("Please Chose Book Category to update");
+                        break;
+                    case 1:
+                        //Check input fields
+                        if (CheckInputField())
                         {
-                            BookId = book.BookId,
-                            Name = txt_Name.Text,
-                            Description = txt_Description.Text,
-                            ImportDate = (DateTime)dtpk_ImportDate.SelectedDate,
-                            OriginSource = txt_OriginSource.Text,
-                            Quantity = int.Parse(txt_Quantity.Text),
-                            Price = double.Parse(txt_Price.Text),
-                            IsAvailable = ckb_IsAvailable.IsChecked,
-                            Category = cmb_Category.SelectedItem.ToString()
-                        };
+                            BookDTO book = (BookDTO)dtgv_BookInfo.SelectedItem;
+                            BookDTO addBook = new BookDTO
+                            {
+                                BookId = book.BookId,
+                                Name = txt_Name.Text,
+                                Description = txt_Description.Text,
+                                ImportDate = (DateTime)dtpk_ImportDate.SelectedDate,
+                                OriginSource = txt_OriginSource.Text,
+                                Quantity = int.Parse(txt_Quantity.Text),
+                                Price = double.Parse(txt_Price.Text),
+                                IsAvailable = ckb_IsAvailable.IsChecked,
+                                Category = cmb_Category.SelectedItem.ToString()
+                            };
 
-                        _bookService.UpdateBook(addBook);
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show("The required input must be filled");
-                    }
-                    break;
-                default:
-                    MessageBox.Show("Cannot update multiple book category");
-                    break;
+                            _bookService.UpdateBook(addBook);
+                            LoadData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("The required input must be filled");
+                        }
+                        break;
+                    default:
+                        MessageBox.Show("Cannot update multiple book category");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             }
         }
 

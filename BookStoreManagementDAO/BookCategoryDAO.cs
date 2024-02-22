@@ -66,6 +66,10 @@ namespace BookStoreManagementDAO
                 _dbContext.BookCategories.Add(createdCategory);
                 _dbContext.SaveChanges();
             }
+            else
+            {
+                throw new Exception("Category Name has already existed");
+            }
         }
 
         public void UpdateBookCategory(BookCategoryDTO updatedBookCategory)
@@ -82,6 +86,10 @@ namespace BookStoreManagementDAO
 
                 _dbContext.Entry<BookCategory>(bookCategory).CurrentValues.SetValues(updatedCategory);
                 _dbContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Category is not existed");
             }
         }
 

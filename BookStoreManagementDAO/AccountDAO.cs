@@ -56,6 +56,10 @@ namespace BookStoreManagementDAO
                 _dbContext.Accounts.Add(createdAccount);
                 _dbContext.SaveChanges();
             }
+            else
+            {
+                throw new Exception("Email has already use");
+            }
         }
 
         public void UpdateAccount(Account updateAccount)
@@ -66,6 +70,10 @@ namespace BookStoreManagementDAO
             {
                 _dbContext.Entry<Account>(account).CurrentValues.SetValues(updateAccount);
                 _dbContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Account is not existed");
             }
         }
 
