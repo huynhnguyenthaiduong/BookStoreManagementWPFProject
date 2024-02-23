@@ -136,7 +136,7 @@ namespace BookStoreManagementDAO
                         IsAvailable = updatedBook.IsAvailable,
                         CategoryId = categoryId
                     };
-                    _dbContext.Entry<Book>(book).CurrentValues.SetValues(updatedBook);
+                    _dbContext.Entry<Book>(book).CurrentValues.SetValues(addBook);
                     _dbContext.SaveChanges();
                 }
                 else
