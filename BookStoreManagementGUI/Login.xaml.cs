@@ -65,11 +65,13 @@ namespace WPFStudentMangementGUI
                     switch (acc.Role)
                     {
                         case "Administrator":
+                            MessageBox.Show("Login as Administrator");
                             AdminScreen adminScreen = new AdminScreen(acc);
                             this.Hide();
                             adminScreen.Show();
                             break;
                         case "Staff":
+                            MessageBox.Show("Login as Staff");
                             StaffScreen staffScreen = new StaffScreen(acc);
                             this.Hide();
                             staffScreen.Show();

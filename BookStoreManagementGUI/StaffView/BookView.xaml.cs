@@ -102,6 +102,7 @@ namespace BookStoreManagementGUI.StaffView
             };
 
             _bookService.AddBook(addBook);
+            MessageBox.Show("Add Successful");
             LoadData();
         }
 
@@ -133,6 +134,7 @@ namespace BookStoreManagementGUI.StaffView
                             };
 
                             _bookService.UpdateBook(addBook);
+                            MessageBox.Show("Update Successful");
                             LoadData();
                         }
                         break;
@@ -158,6 +160,7 @@ namespace BookStoreManagementGUI.StaffView
                     BookDTO book = (BookDTO)dtgv_BookInfo.SelectedItem;
 
                     _bookService.RemoveBook(book.BookId);
+                    MessageBox.Show("Delele Successful");
                     LoadData();
                     break;
                 default:

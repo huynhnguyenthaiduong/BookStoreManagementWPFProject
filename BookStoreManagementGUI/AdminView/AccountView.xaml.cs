@@ -75,6 +75,7 @@ namespace BookStoreManagementGUI.AdminView
                     };
 
                     _accountService.CreateAccount(account);
+                    MessageBox.Show("Add Successful");
                     LoadData();
                 }
             }
@@ -108,6 +109,7 @@ namespace BookStoreManagementGUI.AdminView
                             };
 
                             _accountService.UpdateAccount(updatedAccount);
+                            MessageBox.Show("Update Successful");
                             LoadData();
                         }
                         break;
@@ -146,6 +148,7 @@ namespace BookStoreManagementGUI.AdminView
                     Account account = (Account)dtgv_AccountInfo.SelectedItem;
 
                     _accountService.DeleteAccount(account.AccountId);
+                    MessageBox.Show("Delete Successful");
                     LoadData();
                     break;
                 default:

@@ -68,6 +68,7 @@ namespace BookStoreManagementGUI.StaffView
                     };
 
                     _bookCategoryService.CreateBookCategory(bookCategory);
+                    MessageBox.Show("Add Successful");
                     LoadData();
                 }
             }
@@ -101,6 +102,7 @@ namespace BookStoreManagementGUI.StaffView
                             };
 
                             _bookCategoryService.UpdateBookCategory(updatedCategory);
+                            MessageBox.Show("Update Successful");
                             LoadData();
                         }
                         break;
@@ -133,6 +135,7 @@ namespace BookStoreManagementGUI.StaffView
                     BookCategoryDTO category = (BookCategoryDTO)dtgv_BookCategoryInfo.SelectedItem;
 
                     _bookCategoryService.DeleteBookCategory(category.CategoryId);
+                    MessageBox.Show("Delete Successful");
                     LoadData();
                     break;
                 default:
